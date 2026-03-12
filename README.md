@@ -119,11 +119,13 @@ These playlists should work with most IPTV software:
 # 📦 Repository Structure
 
 ```
-IPTV-IPRadio-Netherlands-
+IPTV-IPRadio-United-States
 │
-├── NpoTV.m3u
-├── NpoRadio.m3u
-└── Rpo.m3u
+├── NBC.m3u
+├── CBS.m3u
+├── ABC.m3u
+├── FOX.m3u
+└── PBS.m3u
 ```
 
 ---
