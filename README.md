@@ -25,7 +25,7 @@ https://mark-609.github.io/IPTV-IPRadio-United-States/
 **Copyable Link**
 
 ```
-https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-Netherlands/refs/heads/main/NpoTV.m3u
+https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-United-States/refs/heads/main/NBC.m3u
 ```
 
 ---
@@ -35,7 +35,7 @@ https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-Netherlands/refs/heads/m
 **Copyable Link**
 
 ```
-https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-Netherlands/refs/heads/main/RPT.m3u
+https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-United-States/refs/heads/main/CBS.m3u
 ```
 
 ---
@@ -45,7 +45,7 @@ https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-Netherlands/refs/heads/m
 **Copyable Link**
 
 ```
-https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-Netherlands/refs/heads/main/RPT.m3u
+https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-United-States/refs/heads/main/ABC.m3u
 ```
 
 ---
@@ -55,7 +55,7 @@ https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-Netherlands/refs/heads/m
 **Copyable Link**
 
 ```
-https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-Netherlands/refs/heads/main/RPT.m3u
+https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-United-States/refs/heads/main/FOX.m3u
 ```
 
 ---
@@ -65,7 +65,7 @@ https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-Netherlands/refs/heads/m
 **Copyable Link**
 
 ```
-https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-Netherlands/refs/heads/main/RPT.m3u
+https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-United-States/refs/heads/main/PBS.m3u
 ```
 
 ---
