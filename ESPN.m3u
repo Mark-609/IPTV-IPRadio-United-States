@@ -1,0 +1,15 @@
+#EXTM3U
+#EXTINF:-1,ESPN Radio Network
+https://live.amperwave.net/manifest/espn-network-cloud.m3u8
+#EXTINF:-1,ESPN 1000 Chicago (WMVP)
+https://live.amperwave.net/manifest/goodkarma-wmvpamaac-hlsc1.m3u8
+#EXTINF:-1,ESPN New York
+https://playerservices.streamtheworld.com/api/livestream-redirect/WEPNAM.mp3
+#EXTINF:-1,ESPN Los Angeles 710
+https://playerservices.streamtheworld.com/api/livestream-redirect/KSPNAMAAC.aac
+#EXTINF:-1,ESPN 97.5 Houston
+https://playerservices.streamtheworld.com/api/livestream-redirect/KESNFM.mp3
+#EXTINF:-1,ESPN 98.7 New York (FM)
+https://playerservices.streamtheworld.com/api/livestream-redirect/WEPNFM.mp3
+#EXTINF:-1,ESPN West Palm 106.3
+https://playerservices.streamtheworld.com/api/livestream-redirect/WUUBFM.mp3
