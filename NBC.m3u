@@ -1,27 +1,28 @@
 #EXTM3U
-#EXTINF:-1 tvg-name="NBC 5 Chicago" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/NBC_logo_2022_%28vertical%29.svg/512px-NBC_logo_2022_%28vertical%29.svg.png" group-title="USA NBC",USA: NBC 5 (Chicago) | HD
+#EXTINF:-1 tvg-name="NBC 5 Chicago" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/6/69/WMAQ_2023.svg" group-title="USA NBC",USA: NBC 5 (Chicago) | HD
 http://atlantisiptv.com:8080/lisa/lisa1/88337
-#EXTINF:-1 tvg-name="NBC 2 Buffalo NY" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/NBC_logo_2022_%28vertical%29.svg/512px-NBC_logo_2022_%28vertical%29.svg.png" group-title="USA NBC",USA: NBC 2 (Buffalo NY) | HD
+#EXTINF:-1 tvg-name="NBC 2 Buffalo NY" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/f/fd/NBC_2_Logo_%28WBBH-TV%29.png" group-title="USA NBC",USA: NBC 2 (Buffalo NY) | HD
 http://atlantisiptv.com:8080/lisa/lisa1/88336
-#EXTINF:-1 tvg-name="NBC 4 New York" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/NBC_logo_2022_%28vertical%29.svg/512px-NBC_logo_2022_%28vertical%29.svg.png" group-title="USA NBC",USA: NBC 4 (New York) | HD
+#EXTINF:-1 tvg-name="NBC 4 New York" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/4/43/WNBC_4_NY.svg" group-title="USA NBC",USA: NBC 4 (New York) | HD
 http://atlantisiptv.com:8080/lisa/lisa1/96177
-#EXTINF:-1 tvg-name="NBC Golf Channel" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Golf_Channel_logo.svg" group-title="USA NBC",USA*: NBC GOLF CHANNEL | HD
+#EXTINF:-1 tvg-name="NBC Golf Channel" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/0/08/Golf_Channel_Logo.png" group-title="USA NBC",USA*: NBC GOLF CHANNEL | HD
 http://atlantisiptv.com:8080/lisa/lisa1/88447
-#EXTINF:-1 tvg-name="NBC Olympic Channel" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/NBC_logo_2022_%28vertical%29.svg/512px-NBC_logo_2022_%28vertical%29.svg.png" group-title="USA NBC",USA: NBC Olympic Channel | HD
+#EXTINF:-1 tvg-name="NBC Olympic Channel" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/5/5d/NBC_Olympics_2024.svg" group-title="USA NBC",USA: NBC Olympic Channel | HD
 http://atlantisiptv.com:8080/lisa/lisa1/88441
 #EXTINF:-1 tvg-name="NBC Sports Chicago" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/NBC_Sports_Chicago_logo.svg/512px-NBC_Sports_Chicago_logo.svg.png" group-title="USA NBC Sports",USA: NBC SPORTS (Chicago) | HD
 http://atlantisiptv.com:8080/lisa/lisa1/88440
-#EXTINF:-1 tvg-name="NBC Sports Bay Area" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/NBC_Sports_Bay_Area_logo.svg/512px-NBC_Sports_Bay_Area_logo.svg.png" group-title="USA NBC Sports",USA: NBC SPORTS BAY AREA | HD
+#EXTINF:-1 tvg-name="NBC Sports Bay Area" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/NBC_Sports_Bay_Area_2023.svg/1280px-NBC_Sports_Bay_Area_2023.svg.png" group-title="USA NBC Sports",USA: NBC SPORTS BAY AREA | HD
 http://atlantisiptv.com:8080/lisa/lisa1/88439
-#EXTINF:-1 tvg-name="NBC Sports Boston" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/NBC_Sports_Boston_logo.svg/512px-NBC_Sports_Boston_logo.svg.png" group-title="USA NBC Sports",USA: NBC SPORTS Boston | HD
+#EXTINF:-1 tvg-name="NBC Sports Boston" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/NBC_Sports_Boston_2023.svg/3840px-NBC_Sports_Boston_2023.svg.png" group-title="USA NBC Sports",USA: NBC SPORTS Boston | HD
 http://atlantisiptv.com:8080/lisa/lisa1/88437
-#EXTINF:-1 tvg-name="NBC Sports California" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/NBC_Sports_California_logo.svg/512px-NBC_Sports_California_logo.svg.png" group-title="USA NBC Sports",USA: NBC SPORTS CALIFORNIA | HD
+#EXTINF:-1 tvg-name="NBC Sports California" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/NBC_Sports_California_2023.svg/1280px-NBC_Sports_California_2023.svg.png" group-title="USA NBC Sports",USA: NBC SPORTS CALIFORNIA | HD
 http://atlantisiptv.com:8080/lisa/lisa1/88438
-#EXTINF:-1 tvg-name="NBC Sports Northwest" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/NBC_Sports_Northwest_logo.svg/512px-NBC_Sports_Northwest_logo.svg.png" group-title="USA NBC Sports",USA: NBC SPORTS NORTHWEST | HD
+#EXTINF:-1 tvg-name="NBC Sports Northwest" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/b/bd/NBC_Sports_Northwest.png" group-title="USA NBC Sports",USA: NBC SPORTS NORTHWEST | HD
 http://atlantisiptv.com:8080/lisa/lisa1/88436
-#EXTINF:-1 tvg-name="NBC Sports Network" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/NBCSN_logo.svg/512px-NBCSN_logo.svg.png" group-title="USA NBC Sports",USA*: NBC Sports Network | HD
+#EXTINF:-1 tvg-name="NBC Sports Network" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/NBC_Sports_Network_logo.svg/1280px-NBC_Sports_Network_logo.svg.png" group-title="USA NBC Sports",USA*: NBC Sports Network | HD
 http://atlantisiptv.com:8080/lisa/lisa1/88443
-#EXTINF:-1 tvg-name="NBC Sports Philadelphia" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/NBC_Sports_Philadelphia_logo.svg/512px-NBC_Sports_Philadelphia_logo.svg.png" group-title="USA NBC Sports",USA: NBC Sports Philadelphia | HD
+#EXTINF:-1 tvg-name="NBC Sports Philadelphia" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/0/01/NBC_Sports_Philadelphia.png" group-title="USA NBC Sports",USA: NBC Sports Philadelphia | HD
 http://atlantisiptv.com:8080/lisa/lisa1/88435
-#EXTINF:-1 tvg-name="NBC Sports Washington" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/NBC_Sports_Washington_logo.svg/512px-NBC_Sports_Washington_logo.svg.png" group-title="USA NBC Sports",USA: NBC Sports Washington | HD
+#EXTINF:-1 tvg-name="NBC Sports Washington" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/0/01/NBC_Sports_Philadelphia.png" group-title="USA NBC Sports",USA: NBC Sports Washington | HD
 http://atlantisiptv.com:8080/lisa/lisa1/88434
+
