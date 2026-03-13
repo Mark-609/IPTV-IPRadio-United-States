@@ -72,22 +72,22 @@ https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-United-States/refs/heads
 
 # 📻 Radio Playlists
 
-## ![NPO](https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-Netherlands/refs/heads/main/overrides/.icons/NpologoSmall.png) NPO Radio
+## ESPN Radio
 
 **Copyable Link**
 
 ```
-https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-Netherlands/refs/heads/main/NpoRadio.m3u
+https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-United-States/refs/heads/main/ESPN.m3u
 ```
 
 ---
 
-## Regional Public Radio (RPR)
+## National Public Radio (NPR)
 
 **Copyable Link**
 
 ```
-https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-Netherlands/refs/heads/main/RPR.m3u
+https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-United-States/refs/heads/main/NPR.m3u
 ```
 
 ---
