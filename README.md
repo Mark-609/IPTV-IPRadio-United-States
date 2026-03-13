@@ -152,7 +152,7 @@ Contributions are welcome.
 
 You can help by:
 
-* Adding new Dutch public streams
+* Adding new US public streams
 * Fixing broken links
 * Improving playlist formatting
 
