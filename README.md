@@ -8,9 +8,14 @@ A simple collection of **USA IPTV and Internet Radio playlists** in `.m3u` forma
 
 These playlists can be used with players such as **VLC, Kodi, TiviMate, IPTV Smarters, Perfect Player, and other IPTV apps**.
 ---
-# 🌍 Visit site
+# 🌍 Visit site | **IPTV Player included!**
 
 https://mark-609.github.io/IPTV-IPRadio-United-States/
+
+---
+# Make sure to check our Reddit out 
+
+https://www.reddit.com/r/All_in_one_IPTV/
 
 ---
 
