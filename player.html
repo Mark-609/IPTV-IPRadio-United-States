@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MARKson RTV</title>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#0c0d11;
+color:white;
+overflow:hidden;
+}
+
+#app{
+display:flex;
+height:100vh;
+}
+
+/* SIDEBAR */
+
+#sidebar{
+width:300px;
+background:#12131a;
+border-right:1px solid #222;
+display:flex;
+flex-direction:column;
+}
+
+#search{
+padding:14px;
+border:none;
+background:#1b1c25;
+color:white;
+font-size:14px;
+outline:none;
+}
+
+#results{
+flex:1;
+overflow:auto;
+}
+
+.result{
+padding:10px 14px;
+border-bottom:1px solid #1e1e1e;
+cursor:pointer;
+}
+
+.result:hover{
+background:#262833;
+}
+
+/* MAIN */
+
+#main{
+flex:1;
+display:flex;
+flex-direction:column;
+}
+
+#top-tabs{
+display:flex;
+gap:8px;
+padding:10px 20px;
+background:#111219;
+border-bottom:1px solid #222;
+align-items:center;
+}
+
+.tab-btn{
+border:1px solid #2a2d3b;
+background:#1b1d27;
+color:#d7d9e2;
+padding:7px 12px;
+border-radius:8px;
+cursor:pointer;
+font-size:13px;
+}
+
+.tab-btn:hover{
+background:#262a38;
+}
+
+.tab-btn.active{
+background:#24e38a;
+color:#0b0c10;
+border-color:#24e38a;
+font-weight:700;
+}
+
+
+#lang-wrap{
+display:flex;
+align-items:center;
+gap:8px;
+}
+
+#lang-label{
+font-size:12px;
+color:#aeb2c3;
+}
+
+#lang-toggle{
+background:#1b1d27;
+color:#d7d9e2;
+border:1px solid #2a2d3b;
+padding:6px 8px;
+border-radius:8px;
+font-size:12px;
+}
+
+#lang-toggle:focus{
+outline:none;
+box-shadow:0 0 0 2px rgba(36,227,138,0.35);
+}
+
+/* PLAYER */
+
+#player{
+height:50vh;
+background:#0b0c10;
+display:flex;
+align-items:center;
+justify-content:flex-start;
+padding:14px 20px;
+overflow:hidden;
+}
+
+#player-frame{
+width:min(960px,calc(100% - 40px));
+height:min(430px,calc(100% - 8px));
+min-width:320px;
+min-height:180px;
+max-width:100%;
+max-height:100%;
+resize:both;
+overflow:hidden;
+background:#000;
+border:1px solid #2a2d3b;
+border-radius:10px;
+box-shadow:0 8px 20px rgba(0,0,0,.35);
+}
+
+video{
+width:100%;
+height:100%;
+object-fit:contain;
+display:block;
+background:#000;
+}
+
+/* INFO */
+
+#info{
+background:#12131a;
+padding:10px 20px;
+border-top:1px solid #222;
+display:grid;
+grid-template-columns:110px 1fr 110px;
+align-items:center;
+gap:16px;
+}
+
+#title{
+display:block;
+margin:0;
+text-align:left;
+justify-self:stretch;
+}
+
+#equalizer{
+display:none;
+align-items:flex-end;
+gap:3px;
+height:28px;
+min-width:90px;
+justify-self:start;
+}
+
+#equalizer.active{
+display:flex;
+}
+
+.eq-bar{
+width:4px;
+height:10px;
+background:#24e38a;
+border-radius:2px;
+transform-origin:bottom;
+transform:scaleY(0.25);
+transition:transform .08s linear;
+}
+
+/* GUIDE ROWS */
+
+#guide{
+flex:1;
+overflow:auto;
+padding:15px;
+}
+
+.section{
+margin-bottom:25px;
+}
+
+.section h2{
+margin:0 0 10px 5px;
+font-size:18px;
+color:#aaa;
+}
+
+.row{
+display:flex;
+gap:12px;
+overflow-x:auto;
+padding:5px;
+}
+
+.card{
+min-width:150px;
+height:90px;
+background:#1e2029;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:8px;
+cursor:pointer;
+text-align:center;
+padding:6px;
+font-size:13px;
+}
+
+.card .fallback-icon{
+font-size:26px;
+line-height:1;
+margin-bottom:4px;
+display:block;
+}
+
+.card .fallback-text{
+font-size:12px;
+line-height:1.2;
+}
+
+.card img{
+max-width:90%;
+max-height:70%;
+}
+
+.card:hover{
+background:#2a2d3b;
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+#sidebar{
+width:180px;
+}
+
+#player-frame{
+resize:none;
+width:calc(100% - 40px);
+height:min(260px,calc(100% - 8px));
+}
+
+.card{
+min-width:120px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="app">
+
+<div id="sidebar">
+
+<input id="search" placeholder="Search channel...">
+
+<div id="results"></div>
+
+</div>
+
+<div id="main">
+
+<div id="top-tabs">
+<div id="lang-wrap">
+<span id="lang-label">Language</span>
+<select id="lang-toggle" aria-label="Language">
+<option value="en" selected>English</option>
+<option value="zh">&#20013;&#25991;</option>
+<option value="de">Deutsch</option>
+<option value="es">Español</option>
+</select>
+</div>
+<button class="tab-btn active" data-tab="ALL">All</button>
+<button class="tab-btn" data-tab="US_NETWORKS">US Networks</button>
+<button class="tab-btn" data-tab="USA">USA</button>
+<button class="tab-btn" data-tab="WORLD">World</button>
+</div>
+
+<div id="player">
+<div id="player-frame">
+<video id="video" controls autoplay playsinline></video>
+</div>
+</div>
+
+<div id="info">
+<b id="title">Ready to play</b>
+<div id="equalizer" aria-hidden="true"></div>
+</div>
+
+<div id="guide"></div>
+
+</div>
+
+</div>
+
+<script>
+
+const video=document.getElementById("video")
+const guide=document.getElementById("guide")
+const results=document.getElementById("results")
+const title=document.getElementById("title")
+const equalizer=document.getElementById("equalizer")
+
+let channels=[]
+let hls=null
+let currentChannel=null
+let audioCtx=null
+let analyser=null
+let analyserData=null
+let analyserSource=null
+let eqAnimationId=null
+let activeTab="ALL"
+let currentLang="en"
+
+const I18N={
+  en:{
+    language:"Language",
+    search:"Search channel...",
+    ready:"Ready to play",
+    tabs:{
+      ALL:"All",
+      US_NETWORKS:"US Networks",
+      USA:"USA",
+      WORLD:"World"
+    }
+  },
+  zh:{
+    language:"\u8bed\u8a00",
+    search:"\u641c\u7d22\u9891\u9053...",
+    ready:"\u51c6\u5907\u64ad\u653e",
+    tabs:{
+      ALL:"\u5168\u90e8",
+      US_NETWORKS:"\u7f8e\u56fd\u7f51\u7edc",
+      USA:"\u7f8e\u56fd",
+      WORLD:"\u4e16\u754c"
+    }
+  },
+  de:{
+    language:"Sprache",
+    search:"Kanal suchen...",
+    ready:"Bereit zum Abspielen",
+    tabs:{
+      ALL:"Alle",
+      US_NETWORKS:"US-Netzwerke",
+      USA:"USA",
+      WORLD:"Welt"
+    }
+  },
+  es:{
+    language:"Idioma",
+    search:"Buscar canal...",
+    ready:"Listo para reproducir",
+    tabs:{
+      ALL:"Todo",
+      US_NETWORKS:"Redes de EE. UU.",
+      USA:"EE. UU.",
+      WORLD:"Mundo"
+    }
+  }
+}
+
+function setLanguage(lang){
+  const t=I18N[lang] || I18N.en
+  currentLang=lang
+  const searchInput=document.getElementById("search")
+  if(searchInput) searchInput.placeholder=t.search
+  const label=document.getElementById("lang-label")
+  if(label) label.textContent=t.language
+  document.querySelectorAll(".tab-btn").forEach(btn=>{
+    const key=btn.dataset.tab
+    if(key && t.tabs[key]) btn.textContent=t.tabs[key]
+  })
+  if(!currentChannel) title.textContent=t.ready
+}
+
+video.crossOrigin="anonymous"
+
+const NPO_RADIO_LOGOS={
+"npor1":"https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/NPO_Radio_1_logo_2014.svg/250px-NPO_Radio_1_logo_2014.svg.png",
+"npor2":"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/NPO_Radio_2_logo.svg/1280px-NPO_Radio_2_logo.svg.png",
+"npo3fm":"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/NPO_3FM_logo_2020.svg/1280px-NPO_3FM_logo_2020.svg.png",
+"npoklassiek":"https://upload.wikimedia.org/wikipedia/commons/0/01/NPO_Klassiek_Logo.png",
+"npor5":"https://upload.wikimedia.org/wikipedia/commons/0/08/NPO_Radio_5_logo_2016.svg",
+"nposoulandjazz":"https://i.postimg.cc/hGvxRDBs/Soul_and_Jazz.png",
+"nposterrennl":"https://www.nporadio5.nl/sterrennl/svg/npo_sterrennl_logo.svg",
+"npocampus":"https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/NPO_Campus_logo.svg/1280px-NPO_Campus_logo.svg.png",
+"funx":"https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/NPO_FunX_logo_2015.svg/1280px-NPO_FunX_logo_2015.svg.png"
+}
+
+const REGIONALE_RADIO_LOGOS={
+"omroepfryslan":"https://static.wikia.nocookie.net/logopedia/images/e/ee/Omrop_Frysl%C3%A2n.svg/revision/latest?cb=20100523153629",
+"rtvdrenthe":"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Logo_RTV_Drenthe.svg/960px-Logo_RTV_Drenthe.svg.png",
+"rtvoost":"https://upload.wikimedia.org/wikipedia/commons/0/08/Logo_RTV_Oost.png",
+"omroepflevoland":"https://regioimpact.nl/wp-content/uploads/2023/09/icon-flevoland.png",
+"omroepgelderland":"https://upload.wikimedia.org/wikipedia/commons/0/09/Omroep_Gelderland.png",
+"omroepwest":"https://omroepwestadverteren.nl/wp-content/uploads/2021/12/west-favi.png",
+"rtvutrecht":"https://i.postimg.cc/cL6bbC5X/M_Utrecht.png",
+"rtvrijnmond":"https://upload.wikimedia.org/wikipedia/commons/7/76/RTV_Rijnmond.png",
+"rtvnoord":"https://media.licdn.com/dms/image/sync/v2/D4E27AQE9akshSgt1yw/articleshare-shrink_800/B4EZruWGLvJ0AI-/0/1764935361604?e=2147483647&v=beta&t=H53sJLgT0p5ErEAytL74OixCu45HEGX_SC07squuXqY",
+"omroepzeeland":"https://upload.wikimedia.org/wikipedia/commons/7/7c/Omroep_Zeeland_logo.png"
+}
+
+function normalizeKey(value){
+return (value||"").toLowerCase().replace(/[^a-z0-9]/g,"")
+}
+
+const NPO_TV_LOGOS={
+"npo1":"https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NPO_1_logo_2014.svg/3840px-NPO_1_logo_2014.svg.png",
+"npo2":"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/NPO_2_logo_2014.svg/1280px-NPO_2_logo_2014.svg.png",
+"npo3":"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/NPO_3_logo_2014.svg/3840px-NPO_3_logo_2014.svg.png",
+"zappelin":"https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/NPO_Zappelin_logo_2018.svg/960px-NPO_Zappelin_logo_2018.svg.png",
+"zapp":"https://upload.wikimedia.org/wikipedia/commons/2/2d/NPO_Zapp_logo_2018.png"
+}
+
+function getAmsterdamDayAndMinutes(){
+const parts=new Intl.DateTimeFormat("en-GB",{
+timeZone:"Europe/Amsterdam",
+weekday:"short",
+hour:"2-digit",
+minute:"2-digit",
+hour12:false
+}).formatToParts(new Date())
+const pick=t=>parts.find(p=>p.type===t)?.value||""
+const day=pick("weekday").toLowerCase().slice(0,3)
+const hour=parseInt(pick("hour"),10)
+const minute=parseInt(pick("minute"),10)
+return {
+day,
+minutes:(Number.isFinite(hour)?hour:0)*60 + (Number.isFinite(minute)?minute:0)
+}
+}
+
+function getNpo3TimeLogo(){
+const t=getAmsterdamDayAndMinutes()
+const isWeekend=t.day==="sat" || t.day==="sun"
+const startMorning=5*60+30
+const switchToZappWeekday=15*60
+const switchToZappWeekend=8*60+30
+const endZapp=19*60+20
+
+if(!isWeekend && t.minutes>=startMorning && t.minutes<switchToZappWeekday) return NPO_TV_LOGOS.zappelin
+if(isWeekend && t.minutes>=startMorning && t.minutes<switchToZappWeekend) return NPO_TV_LOGOS.zappelin
+if(!isWeekend && t.minutes>=switchToZappWeekday && t.minutes<endZapp) return NPO_TV_LOGOS.zapp
+if(isWeekend && t.minutes>=switchToZappWeekend && t.minutes<endZapp) return NPO_TV_LOGOS.zapp
+return NPO_TV_LOGOS.npo3
+}
+
+function getNpoTvLogo(name){
+const key=normalizeKey(name)
+if(!key.includes("npo")) return ""
+if(key.includes("npo1")) return NPO_TV_LOGOS.npo1
+if(key.includes("npo2")) return NPO_TV_LOGOS.npo2
+if(key.includes("npo3")) return getNpo3TimeLogo()
+return ""
+}
+
+function getNpoRadioLogo(name){
+const key=normalizeKey(name)
+if(!key) return ""
+if(NPO_RADIO_LOGOS[key]) return NPO_RADIO_LOGOS[key]
+if(key.includes("radio1")) return NPO_RADIO_LOGOS.npor1
+if(key.includes("radio2")) return NPO_RADIO_LOGOS.npor2
+if(key.includes("radio5")) return NPO_RADIO_LOGOS.npor5
+if(key.includes("3fm")) return NPO_RADIO_LOGOS.npo3fm
+if(key.includes("klassiek")) return NPO_RADIO_LOGOS.npoklassiek
+if(key.includes("soulandjazz") || key.includes("souljazz") || (key.includes("soul") && key.includes("jazz"))) return NPO_RADIO_LOGOS.nposoulandjazz
+if(key.includes("sterrennl")) return NPO_RADIO_LOGOS.nposterrennl
+if(key.includes("campus")) return NPO_RADIO_LOGOS.npocampus
+if(key.includes("funx")) return NPO_RADIO_LOGOS.funx
+return ""
+}
+
+function getRegionaleRadioLogo(name){
+const key=normalizeKey(name)
+if(!key) return ""
+if(REGIONALE_RADIO_LOGOS[key]) return REGIONALE_RADIO_LOGOS[key]
+if(key.includes("fryslan") || key.includes("frysln") || key.includes("friesland")) return REGIONALE_RADIO_LOGOS.omroepfryslan
+if(key.includes("drenthe")) return REGIONALE_RADIO_LOGOS.rtvdrenthe
+if(key.includes("oost")) return REGIONALE_RADIO_LOGOS.rtvoost
+if(key.includes("flevoland")) return REGIONALE_RADIO_LOGOS.omroepflevoland
+if(key.includes("gelderland")) return REGIONALE_RADIO_LOGOS.omroepgelderland
+if(key.includes("west")) return REGIONALE_RADIO_LOGOS.omroepwest
+if(key.includes("utrecht")) return REGIONALE_RADIO_LOGOS.rtvutrecht
+if(key.includes("rijnmond")) return REGIONALE_RADIO_LOGOS.rtvrijnmond
+if(key.includes("noord")) return REGIONALE_RADIO_LOGOS.rtvnoord
+if(key.includes("zeeland")) return REGIONALE_RADIO_LOGOS.omroepzeeland
+return ""
+}
+
+function toDisplayText(value){
+return (value || "").replace(/;/g," - ")
+}
+
+function iconForGroup(group){
+if(group==="NPO Radio") return "&#128251;"
+if(group==="Regionale Radio" || group==="Regionaal Radio") return "&#128225;"
+return "&#128250;"
+}
+
+function setCardFallback(card,ch){
+card.textContent=toDisplayText(ch.name)
+}
+
+function isRadioGroup(group){
+return group==="NPO Radio" || group==="Regionale Radio" || group==="Regionaal Radio"
+}
+
+function getHostIconUrl(streamUrl){
+try{
+const host=new URL(streamUrl).hostname
+if(!host) return null
+return `https://icons.duckduckgo.com/ip3/${host}.ico`
+}catch(e){
+return null
+}
+}
+
+function getGroupIconUrl(group){
+if(isRadioGroup(group)){
+return "https://api.iconify.design/mdi/radio.svg?color=%23ffffff"
+}
+return "https://api.iconify.design/mdi/television-classic.svg?color=%23ffffff"
+}
+
+function appendImageWithFallbacks(card,ch){
+const candidates=[]
+
+let resolvedLogo=ch.logo
+if(ch.group==="NPO"){
+resolvedLogo=getNpoTvLogo(ch.name) || ch.logo
+}
+if(resolvedLogo) candidates.push(resolvedLogo)
+
+const hostIcon=getHostIconUrl(ch.url)
+if(hostIcon) candidates.push(hostIcon)
+
+candidates.push(getGroupIconUrl(ch.group))
+
+const img=document.createElement("img")
+img.alt=toDisplayText(ch.name)
+img.loading="lazy"
+img.referrerPolicy="no-referrer"
+
+let idx=0
+img.onerror=()=>{
+idx++
+if(idx<candidates.length){
+img.src=candidates[idx]
+return
+}
+setCardFallback(card,ch)
+}
+
+img.src=candidates[idx]
+card.appendChild(img)
+}
+
+function ensureEqualizerBars(){
+if(equalizer.children.length) return
+for(let i=0;i<16;i++){
+const bar=document.createElement("span")
+bar.className="eq-bar"
+equalizer.appendChild(bar)
+}
+}
+
+function isRadioChannel(ch){
+return !!(ch && isRadioGroup(ch.group))
+}
+
+function initAudioAnalyser(){
+if(analyser || analyserSource===false) return
+try{
+audioCtx=audioCtx || new (window.AudioContext || window.webkitAudioContext)()
+analyser=audioCtx.createAnalyser()
+analyser.fftSize=64
+analyserData=new Uint8Array(analyser.frequencyBinCount)
+if(!analyserSource){
+analyserSource=audioCtx.createMediaElementSource(video)
+analyserSource.connect(analyser)
+analyser.connect(audioCtx.destination)
+}
+}catch(e){
+analyserSource=false
+analyser=null
+analyserData=null
+}
+}
+
+function stopEqualizer(){
+if(eqAnimationId){
+cancelAnimationFrame(eqAnimationId)
+eqAnimationId=null
+}
+for(const bar of equalizer.children){
+bar.style.transform="scaleY(0.25)"
+}
+}
+
+function animateEqualizer(){
+if(!equalizer.classList.contains("active")) return
+
+const bars=equalizer.children
+
+if(analyser && analyserData){
+analyser.getByteFrequencyData(analyserData)
+for(let i=0;i<bars.length;i++){
+const v=analyserData[i%analyserData.length]/255
+const pulse=0.22 + Math.random()*0.25
+const scale=Math.max(pulse,v*1.3)
+bars[i].style.transform=`scaleY(${scale.toFixed(3)})`
+}
+}else{
+for(let i=0;i<bars.length;i++){
+const base=video.paused ? 0.2 : (0.25+Math.random()*0.95)
+bars[i].style.transform=`scaleY(${base.toFixed(3)})`
+}
+}
+
+eqAnimationId=requestAnimationFrame(animateEqualizer)
+}
+
+function updateEqualizerState(){
+const show=isRadioChannel(currentChannel)
+equalizer.classList.toggle("active",show)
+if(!show){
+stopEqualizer()
+return
+}
+ensureEqualizerBars()
+initAudioAnalyser()
+if(audioCtx && audioCtx.state==="suspended"){
+audioCtx.resume().catch(()=>{})
+}
+if(video.paused || video.ended){
+stopEqualizer()
+return
+}
+if(!eqAnimationId){
+animateEqualizer()
+}
+}
+
+video.addEventListener("play",updateEqualizerState)
+video.addEventListener("playing",updateEqualizerState)
+video.addEventListener("pause",updateEqualizerState)
+video.addEventListener("ended",updateEqualizerState)
+video.addEventListener("emptied",updateEqualizerState)
+video.addEventListener("error",updateEqualizerState)
+
+/* PLAYER */
+
+function play(ch){
+
+currentChannel=ch
+title.textContent=toDisplayText(ch.name)
+updateEqualizerState()
+
+if(hls){
+hls.destroy()
+hls=null
+}
+
+video.src=""
+
+if(ch.url.includes(".m3u8") && Hls.isSupported()){
+
+hls=new Hls()
+hls.loadSource(ch.url)
+hls.attachMedia(video)
+hls.on(Hls.Events.MANIFEST_PARSED,()=>{
+video.play().catch(()=>{})
+})
+
+}else{
+
+video.src=ch.url
+video.play().catch(()=>{})
+
+}
+
+}
+
+/* PARSE M3U */
+
+function parseM3U(data,groupOverride=null,tab="ALL"){
+
+const lines=data.split("\n")
+
+let name="",logo="",group="TV"
+
+for(let line of lines){
+
+line=line.trim()
+
+if(line.startsWith("#EXTINF")){
+
+name=(line.split(",")[1]||"").trim()
+name=toDisplayText(name)
+
+// Rename only the radio channel; TV keeps its original name.
+if(group==="Regionale Radio" || group==="Regionaal Radio") {
+  if(/rtv\s*utrecht/i.test(name)) name="Radio M Utrecht"
+}
+
+
+if(/^\++/.test(name)){
+name=""
+continue
+}
+
+
+const lg=line.match(/tvg-logo="([^"]+)"/)
+if(lg) logo=lg[1]
+
+const gr=line.match(/group-title="([^"]+)"/)
+if(gr) group=gr[1]
+group=toDisplayText(group)
+
+if(groupOverride) group=groupOverride
+if(groupOverride) group=toDisplayText(group)
+
+}
+
+else if(line.startsWith("http") && name){
+
+let finalLogo=logo
+if(group==="NPO Radio"){
+finalLogo=getNpoRadioLogo(name) || logo
+}
+if(group==="Regionale Radio" || group==="Regionaal Radio" || group==="Regionaal TV"){
+finalLogo=getRegionaleRadioLogo(name) || logo
+}
+if(group==="Regionaal TV" && /rtv\s*utrecht/i.test(name)){
+finalLogo="https://careers.recruiteecdn.com/image/upload/q_auto,f_auto,w_400,c_limit/production/images/BAH-/WLb-KHrFfOSY.png"
+}
+if(group==="NPO"){
+finalLogo=getNpoTvLogo(name) || logo
+}
+
+channels.push({
+name,
+logo:finalLogo,
+group,
+url:line,
+tab
+})
+
+name=""
+
+}
+
+}
+
+}
+
+/* LOAD PLAYLISTS */
+
+async function load(){
+
+const sources=[
+
+{
+url:"https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-United-States/refs/heads/main/ESPN.m3u",
+group:"ESPN Radio",
+tab:"US_NETWORKS"
+},
+
+{
+url:"https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-United-States/refs/heads/main/NPR.m3u",
+group:"NPR Radio",
+tab:"US_NETWORKS"
+},
+
+{
+url:"https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-United-States/refs/heads/main/NBC.m3u",
+group:"NBC",
+tab:"US_NETWORKS"
+},
+
+{
+url:"https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-United-States/refs/heads/main/CBS.m3u",
+group:"CBS",
+tab:"US_NETWORKS"
+},
+
+{
+url:"https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-United-States/refs/heads/main/ABC.m3u",
+group:"ABC",
+tab:"US_NETWORKS"
+},
+
+{
+url:"https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-United-States/refs/heads/main/FOX.m3u",
+group:"FOX",
+tab:"US_NETWORKS"
+},
+
+{
+url:"https://raw.githubusercontent.com/Mark-609/IPTV-IPRadio-United-States/refs/heads/main/PBS.m3u",
+group:"PBS",
+tab:"US_NETWORKS"
+},
+
+{
+url:"https://iptv-org.github.io/iptv/countries/us.m3u",
+tab:"USA"
+},
+
+{
+url:"https://iptv-org.github.io/iptv/index.m3u",
+tab:"WORLD"
+}
+
+];
+
+for(const src of sources){
+
+try{
+
+const r=await fetch(src.url)
+const t=await r.text()
+
+parseM3U(t,src.group,src.tab||"ALL")
+
+}catch(e){}
+
+}
+
+buildGuide()
+
+}
+
+/* BUILD GUIDE */
+
+function buildGuide(){
+
+guide.innerHTML=""
+
+const visibleChannels=activeTab==="ALL" ? channels : channels.filter(c=>c.tab===activeTab)
+const groups={}
+
+visibleChannels.forEach(c=>{
+if(!groups[c.group]) groups[c.group]=[]
+groups[c.group].push(c)
+})
+
+/* PRIORITY ORDER */
+
+const order=[
+"ESPN Radio",
+"NPR Radio",
+"NBC",
+"CBS",
+"ABC",
+"FOX",
+"PBS",
+"USA",
+"World"
+]
+
+Object.keys(groups)
+.sort((a,b)=>{
+
+const ia=order.indexOf(a)
+const ib=order.indexOf(b)
+
+if(ia!==-1 && ib!==-1) return ia-ib
+if(ia!==-1) return -1
+if(ib!==-1) return 1
+
+return a.localeCompare(b)
+
+})
+.forEach(group=>{
+
+const sec=document.createElement("div")
+sec.className="section"
+
+const title=document.createElement("h2")
+title.textContent=group
+
+sec.appendChild(title)
+
+const row=document.createElement("div")
+row.className="row"
+
+groups[group].slice(0,30).forEach(ch=>{
+
+const card=document.createElement("div")
+card.className="card"
+
+appendImageWithFallbacks(card,ch)
+
+card.onclick=()=>play(ch)
+
+row.appendChild(card)
+
+})
+
+sec.appendChild(row)
+
+guide.appendChild(sec)
+
+})
+
+}
+
+/* SEARCH */
+
+document.getElementById("search").oninput=e=>{
+
+const q=e.target.value.toLowerCase()
+
+results.innerHTML=""
+
+if(!q) return
+
+(activeTab==="ALL" ? channels : channels.filter(c=>c.tab===activeTab))
+.filter(c=>c.name.toLowerCase().includes(q))
+.slice(0,80)
+.forEach(ch=>{
+
+const d=document.createElement("div")
+d.className="result"
+d.textContent=toDisplayText(ch.name)
+
+d.onclick=()=>play(ch)
+
+results.appendChild(d)
+
+})
+
+}
+
+
+document.querySelectorAll(".tab-btn").forEach(btn=>{
+btn.onclick=()=>{
+activeTab=btn.dataset.tab||"ALL"
+document.querySelectorAll(".tab-btn").forEach(x=>x.classList.toggle("active",x===btn))
+buildGuide()
+results.innerHTML=""
+document.getElementById("search").value=""
+}
+})
+const langToggle=document.getElementById("lang-toggle")
+if(langToggle){
+  langToggle.value=currentLang
+  langToggle.onchange=e=>setLanguage(e.target.value)
+}
+setLanguage("en")
+
+/* START */
+
+load()
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
